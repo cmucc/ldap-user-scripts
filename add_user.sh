@@ -3,9 +3,8 @@ set -o nounset
 set -o errexit
 
 LDAP_ACCMAKER_PASSWORD_FILE=/afs/club.cc.cmu.edu/service/ldap/secret/ldap_accmaker_password
-LDAP_IMPORT_SCRIPTS_DIR=/afs/club.cc.cmu.edu/service/ldap/import/
 
-LDAP_URL=ldaps://ldap1.club.cc.cmu.edu
+LDAP_URL=ldap://ldap1.club.cc.cmu.edu
 LDAP_ADMIN_DN="cn=accmaker,ou=Administrators,ou=TopologyManagement,o=NetscapeRoot"
 
 if [[ -z "$(klist | grep admin)" ]]; then
@@ -36,7 +35,7 @@ fi
 # convert passwd format to LDIF format
 # we use our own version of migrate_passwd.pl because we've modified migrate_common.ph with cclub defaults
 TMP_LDIF=$(mktemp)
-cd $LDAP_IMPORT_SCRIPTS_DIR
+cd $(dirname $(readlink -f $0))
 ./migrate_passwd.pl <(echo "$PASSWD_LINE") $TMP_LDIF 
 
 # load LDIF format file into LDAP
