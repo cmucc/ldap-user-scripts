@@ -1,0 +1,16 @@
+These are scripts related to LDAP!
+
+migrate_common.ph/migrate_passwd.pl is a script from
+https://packages.debian.org/wheezy/migrationtools hacked up to follow
+some CClub conventions. It takes an /etc/passwd file and converts it
+into an LDIF, "LDAP Import Format".
+
+add_user.sh takes a single /etc/passwd line as a command line
+argument, converts it into an LDIF with migrate_passwd.pl, and then
+imports it into the CClub LDAP server. If it isn't passed any
+arguments, it will grab the last line from
+/afs/club.cc.cmu.edu/service/etc/passwd.user and try importing that.
+
+make_user_admin.sh doesn't exist but should eventually.
+
+delete_user.sh doesn't exist but should eventually.
