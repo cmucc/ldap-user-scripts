@@ -36,7 +36,7 @@ fi
 # we use our own version of migrate_passwd.pl because we've modified migrate_common.ph with cclub defaults
 TMP_LDIF=$(mktemp)
 cd $(dirname $(readlink -f $0))
-./migrate_passwd.pl <(echo "$PASSWD_LINE") $TMP_LDIF 
+perl -I"$PWD" ./migrate_passwd.pl <(echo "$PASSWD_LINE") $TMP_LDIF
 
 # load LDIF format file into LDAP
 ldapadd -x -y $LDAP_ACCMAKER_PASSWORD_FILE -D $LDAP_ADMIN_DN -c -f $TMP_LDIF -H $LDAP_URL
